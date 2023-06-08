@@ -154,6 +154,26 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // event listeners
 function eventListeners(){
+
+    // search button click event
+    document.getElementById('search-btn').addEventListener('click', () => {
+        const phoneNumber = document.getElementById('phone-search').value;
+        if (phoneNumber !== '') {
+            const addresses = Address.getAddresses();
+            const matchingAddresses = addresses.filter(address => address.phone.includes(phoneNumber));
+            addrBookList.innerHTML = '';
+            matchingAddresses.forEach(address => UI.addToAddressList(address));
+        } else {
+            // If the phone number field is empty, display all addresses
+            addrBookList.innerHTML = '';
+            UI.showAddressList();
+        }
+    });
+
+
+
+
+
     // show add item modal
     addBtn.addEventListener('click', () => {
         form.reset();
@@ -254,26 +274,7 @@ function loadJSON(){
 }
 
 
-function eventListeners(){
-   
 
-    // search button click event
-    document.getElementById('search-btn').addEventListener('click', () => {
-        const phoneNumber = document.getElementById('phone-search').value;
-        if (phoneNumber !== '') {
-            const addresses = Address.getAddresses();
-            const matchingAddresses = addresses.filter(address => address.phone.includes(phoneNumber));
-            addrBookList.innerHTML = '';
-            matchingAddresses.forEach(address => UI.addToAddressList(address));
-        } else {
-            // If the phone number field is empty, display all addresses
-            addrBookList.innerHTML = '';
-            UI.showAddressList();
-        }
-    });
-
-    
-}
 
 // get form data
 function getFormData(){
